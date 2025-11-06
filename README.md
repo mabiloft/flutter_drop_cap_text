@@ -22,7 +22,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_drop_cap_text: ^0.1.0
+  flutter_drop_cap_text: ^1.0.1
 ```
 
 Then run:

@@ -8,23 +8,52 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+/// Positioning mode for the drop cap relative to the text.
 enum DropCapMode {
-  /// default
+  /// Default mode: drop cap is positioned inside the text, spanning multiple lines.
   inside,
+
+  /// Drop cap is positioned upwards, aligned with the top of the first line.
   upwards,
+
+  /// Drop cap is positioned aside the text, to the left or right.
   aside,
 
+  /// Drop cap is positioned on the baseline with the text.
+  ///
   /// Does not support dropCapPadding, indentation, dropCapPosition and custom dropCap.
   /// Try using DropCapMode.upwards in combination with dropCapPadding and forceNoDescent=true
   baseline,
 }
 
-enum DropCapPosition { start, end }
+/// Position of the drop cap relative to the text.
+enum DropCapPosition {
+  /// Drop cap appears at the start of the text.
+  start,
 
+  /// Drop cap appears at the end of the text.
+  end,
+}
+
+/// A custom widget for the drop cap character.
+///
+/// Use this class to provide a custom widget instead of using the default
+/// text-based drop cap. This allows for complete customization of the drop
+/// cap appearance.
 class DropCap extends StatelessWidget {
+  /// Creates a custom drop cap widget.
+  ///
+  /// The [child] is the widget to display as the drop cap.
+  /// The [width] and [height] define the dimensions of the drop cap.
   const DropCap({required this.child, required this.width, required this.height, super.key});
+
+  /// The widget to display as the drop cap.
   final Widget child;
+
+  /// The width of the drop cap.
   final double width;
+
+  /// The height of the drop cap.
   final double height;
 
   @override
@@ -33,7 +62,34 @@ class DropCap extends StatelessWidget {
   }
 }
 
+/// A widget that displays text with a stylized drop cap (initial letter) effect.
+///
+/// The drop cap is typically the first letter of the text, displayed in a
+/// larger size and positioned to span multiple lines of the following text.
+///
+/// Example:
+/// ```dart
+/// DropCapText(
+///   'Lorem ipsum dolor sit amet...',
+///   mode: DropCapMode.inside,
+///   dropCapStyle: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+/// )
+/// ```
 class DropCapText extends StatelessWidget {
+  /// Creates a drop cap text widget.
+  ///
+  /// The [data] parameter is the text to display with a drop cap effect.
+  ///
+  /// The [mode] parameter controls how the drop cap is positioned relative
+  /// to the text. Defaults to [DropCapMode.inside].
+  ///
+  /// The [style] parameter applies to the main text body.
+  ///
+  /// The [dropCapStyle] parameter applies to the drop cap character(s).
+  /// If not provided, the drop cap will use a larger version of [style].
+  ///
+  /// The [dropCap] parameter allows you to provide a custom widget for the
+  /// drop cap instead of using the default text-based drop cap.
   const DropCapText(
     this.data, {
     super.key,
@@ -52,20 +108,50 @@ class DropCapText extends StatelessWidget {
     this.maxLines,
     this.dropCapPosition,
   });
+
+  /// The text to display with a drop cap effect.
   final String data;
+
+  /// The positioning mode for the drop cap.
   final DropCapMode mode;
+
+  /// The text style for the main text body.
   final TextStyle? style;
+
+  /// The text style for the drop cap character(s).
   final TextStyle? dropCapStyle;
+
+  /// How the text should be aligned horizontally.
   final TextAlign textAlign;
+
+  /// A custom widget to use as the drop cap instead of the default text.
   final DropCap? dropCap;
+
+  /// Padding around the drop cap.
   final EdgeInsets dropCapPadding;
+
+  /// Indentation offset for the text body relative to the drop cap.
   final Offset indentation;
+
+  /// Whether to force no descent on the drop cap (useful for certain fonts).
   final bool forceNoDescent;
+
+  /// Whether to parse inline markdown in the text (supports **bold**, _italic_, ++underline++).
   final bool parseInlineMarkdown;
+
+  /// The directionality of the text.
   final TextDirection textDirection;
+
+  /// The position of the drop cap relative to the text.
   final DropCapPosition? dropCapPosition;
+
+  /// The number of characters to use for the drop cap.
   final int dropCapChars;
+
+  /// An optional maximum number of lines for the text to span.
   final int? maxLines;
+
+  /// How visual overflow should be handled.
   final TextOverflow overflow;
 
   @override
@@ -254,7 +340,12 @@ class DropCapText extends StatelessWidget {
   }
 }
 
+/// Parser for inline markdown syntax in text.
+///
+/// Supports parsing of **bold**, _italic_, and ++underline++ markdown
+/// syntax within text strings.
 class MarkdownParser {
+  /// Creates a markdown parser for the given [data] string.
   MarkdownParser(this.data) {
     plainText = '';
     spans = [MarkdownSpan(text: '', markups: [], style: const TextStyle())];
@@ -310,14 +401,25 @@ class MarkdownParser {
       }
     }
   }
+
+  /// The original text data.
   final String data;
+
+  /// The parsed markdown spans.
   late List<MarkdownSpan> spans;
+
+  /// The plain text without markdown syntax.
   String plainText = '';
 
+  /// Converts the parsed markdown spans to a list of [TextSpan] widgets.
   List<TextSpan> toTextSpanList() {
     return spans.map((s) => s.toTextSpan()).toList();
   }
 
+  /// Creates a new [MarkdownParser] with a substring of the original data.
+  ///
+  /// The [startIndex] parameter specifies where to start the substring.
+  /// The optional [endIndex] parameter specifies where to end the substring.
   MarkdownParser subchars(int startIndex, [int? endIndex]) {
     final subspans = <MarkdownSpan>[];
     var skip = startIndex;
@@ -351,17 +453,32 @@ class MarkdownParser {
   }
 }
 
+/// Represents a span of text with associated markdown styling.
 class MarkdownSpan {
+  /// Creates a markdown span with the given [text], [style], and [markups].
   MarkdownSpan({required this.text, required this.style, required this.markups});
+
+  /// The text style for this span.
   final TextStyle style;
+
+  /// The list of markdown markups applied to this span.
   final List<Markup> markups;
+
+  /// The text content of this span.
   String text;
 
+  /// Converts this markdown span to a [TextSpan] widget.
   TextSpan toTextSpan() => TextSpan(text: text, style: style);
 }
 
+/// Represents a markdown markup element (e.g., **, _, ++).
 class Markup {
+  /// Creates a markup with the given [code] and [isActive] state.
   Markup(this.code, {required this.isActive});
+
+  /// The markup code (e.g., '**', '_', '++').
   final String code;
+
+  /// Whether this markup is currently active (opening) or not (closing).
   final bool isActive;
 }

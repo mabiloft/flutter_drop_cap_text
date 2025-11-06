@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2025-11-06
+
+### Added
+
+- Comprehensive API documentation for all public classes, enums, and properties
+- Documentation for `DropCapMode` enum and all its values
+- Documentation for `DropCapPosition` enum and all its values
+- Documentation for `DropCap` class, constructor, and properties
+- Documentation for `DropCapText` class, constructor, and all properties
+- Documentation for `MarkdownParser` class, constructor, properties, and methods
+- Documentation for `MarkdownSpan` class, constructor, properties, and methods
+- Documentation for `Markup` class, constructor, and properties
+
+### Changed
+
+- Improved code documentation to meet pub.dev's 20% documentation requirement
+
 ## [1.0.0] - 2025-11-06
 
 ### Added
