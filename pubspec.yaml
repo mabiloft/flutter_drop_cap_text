@@ -1,0 +1,20 @@
+name: drop_cap_text
+description: A Flutter package for creating beautiful drop cap text effects in your Flutter applications.
+version: 1.0.0
+homepage: https://github.com/mabiloft/drop_cap_text
+repository: https://github.com/mabiloft/drop_cap_text
+issue_tracker: https://github.com/mabiloft/drop_cap_text/issues
+
+environment:
+  sdk: ^3.0.0
+  flutter: '>=3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_lints: ^5.0.0
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^10.0.0
