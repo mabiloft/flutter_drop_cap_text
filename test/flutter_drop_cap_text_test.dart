@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:drop_cap_text/drop_cap_text.dart';
+import 'package:flutter_drop_cap_text/drop_cap_text.dart';
 
 void main() {
   group('DropCapText', () {
@@ -26,7 +26,10 @@ void main() {
           ),
         ),
       );
-      expect(find.text(testText.substring(1)), findsWidgets);
+      final String restText = testText.substring(1);
+      final Iterable<RichText> richTexts = tester.widgetList<RichText>(find.byType(RichText));
+      final bool hasRestText = richTexts.any((RichText rt) => rt.text.toPlainText().contains(restText));
+      expect(hasRestText, isTrue);
     });
 
     testWidgets('uses default values', (WidgetTester tester) async {

@@ -1,6 +1,6 @@
-# drop_cap_text
+# flutter_drop_cap_text
 
-[![pub package](https://img.shields.io/pub/v/drop_cap_text.svg?style=flat-square)](https://pub.dev/packages/drop_cap_text)
+[![pub package](https://img.shields.io/pub/v/flutter_drop_cap_text.svg?style=flat-square)](https://pub.dev/packages/flutter_drop_cap_text)
 [![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg?style=flat-square)](https://pub.dev/packages/very_good_analysis)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
@@ -22,7 +22,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  drop_cap_text: ^0.1.0
+  flutter_drop_cap_text: ^0.1.0
 ```
 
 Then run:
@@ -37,7 +37,7 @@ flutter pub get
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:drop_cap_text/drop_cap_text.dart';
+import 'package:flutter_drop_cap_text/drop_cap_text.dart';
 
 DropCapText(
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
